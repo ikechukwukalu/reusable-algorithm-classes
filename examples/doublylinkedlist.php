@@ -23,23 +23,28 @@ $list->push(10);
 $list->push(10.1);
 $list->push(10.2);
 
-echo '<pre>';
-print_r($list);
-echo '</pre>';
+$list->description('Initial List In Object Format');
+$list->displayUsingPreTag($list);
+
+echo '<br/><br/><br/>';
+
+$list->description('Initial List In Loop');
+$list->displayListRightMovement($list);
+$list->displayListLeftMovement($list);
 
 $list->unshift();
 $list->unshift();
 
-echo '<pre>';
-print_r($list);
-echo '</pre>';
+$list->description('Removed 2 Items From Top');
+$list->displayListRightMovement($list);
+$list->displayListLeftMovement($list);
 
 $list->pop();
 $list->pop();
 
-echo '<pre>';
-print_r($list);
-echo '</pre>';
+$list->description('Removed 2 Items From Bottom');
+$list->displayListRightMovement($list);
+$list->displayListLeftMovement($list);
 
 $list->insertAt(0, 0);
 $list->insertAt(11, 10);
@@ -50,36 +55,12 @@ $list->insertAt(8.5, 11);
 $list->insertAt(9.5, 13);
 $list->insertAt(10.5, 15);
 
-echo '<pre>';
-print_r($list);
-echo '</pre>';
+$list->description('Added 8 New Items From Index Positions');
+$list->displayListRightMovement($list);
+$list->displayListLeftMovement($list);
 
-echo '<pre>';
-print_r($list->search(0.5));
-echo '</pre>';
-
-$i = 0;
-$count = $list->size() + 5;
-
-while ($i < $count) {
-    echo 'VALUE: ' . $list->getCurrentItem()->value . ', INDEX: ' . $list->getCurrentItemIndex() . '<br/>';
-    $list->nextItem();
-    $i ++;
-}
-
-echo '<br/>';
-
-$j = $list->size() - 1;
-
-while ($j >= -5) {
-    echo 'VALUE: ' . $list->getCurrentItem()->value . ', INDEX: ' . $list->getCurrentItemIndex() . '<br/>';
-    $list->prevItem();
-    $j --;
-}
-
-echo '<br/>';
-echo '<br/>';
-echo '<br/>';
+$list->description('Searched For A Value');
+$list->displayUsingPreTag($list->search(0.5));
 
 $list->deleteAt(0); // 0
 $list->deleteAt(0); // 0.5
@@ -90,21 +71,7 @@ $list->deleteAt(9); // 9.5
 $list->deleteAt(11); // 10.5
 $list->deleteAt(10); // 11
 
-$i = 0;
-$count = $list->size() + 5;
 
-while ($i < $count) {
-    echo 'VALUE: ' . $list->getCurrentItem()->value . ', INDEX: ' . $list->getCurrentItemIndex() . '<br/>';
-    $list->nextItem();
-    $i ++;
-}
-
-echo '<br/>';
-
-$j = $list->size() - 1;
-
-while ($j >= -5) {
-    echo 'VALUE: ' . $list->getCurrentItem()->value . ', INDEX: ' . $list->getCurrentItemIndex() . '<br/>';
-    $list->prevItem();
-    $j --;
-}
+$list->description('Removed 8 Items From Index Positions');
+$list->displayListRightMovement($list);
+$list->displayListLeftMovement($list);

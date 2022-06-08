@@ -201,6 +201,57 @@ class Doublylinkedlist {
         $this->itemIndex --;
     }
 
+    /**
+     * Start
+     * These functions are only used to display the linked list
+     * Consider removing them
+     */
+    public function displayListRightMovement(Doublylinkedlist $list): void
+    {
+        $this->itemIndex = $this->item = null;
+
+        $i = 0;
+        $count = $list->size();
+
+        while ($i < $count) {
+            echo 'VALUE: ' . $list->getCurrentItem()->value . ', INDEX: ' . $list->getCurrentItemIndex() . '<br/>';
+            $list->nextItem();
+            $i ++;
+        }
+
+        echo '<br/>';
+    }
+
+    public function displayListLeftMovement(Doublylinkedlist $list): void
+    {
+        $j = $list->size() - 1;
+
+        while ($j >= 0) {
+            echo 'VALUE: ' . $list->getCurrentItem()->value . ', INDEX: ' . $list->getCurrentItemIndex() . '<br/>';
+            $list->prevItem();
+            $j --;
+        }
+
+        echo '<br/>';
+    }
+
+    public function displayUsingPreTag($object): void
+    {
+        echo '<pre>';
+        print_r($object);
+        echo '</pre>';
+    }
+
+    public function description($text): void
+    {
+        echo "<h3>{$text}</h3><br/>";
+    }
+    /**
+     * End
+     * These functions are only used to display the linked list
+     * Consider removing them
+     */
+
     private function setFirstElement($value): void
     {
         $this->head = $this->tail = new Node($value);
