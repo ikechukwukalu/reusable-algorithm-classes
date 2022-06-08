@@ -84,9 +84,7 @@ class Doublylinkedlist {
             return;
         }
 
-        $traverseForward = $index < ($tailIndex - $index);
-
-        if ($traverseForward) {
+        if ($this->shouldTraverseForward($index, $tailIndex)) {
             $this->traverseForward($index, $value);
             return;
         }
@@ -113,9 +111,7 @@ class Doublylinkedlist {
             return $this->unshift();
         }
 
-        $traverseForward = $index < ($tailIndex - $index);
-
-        if ($traverseForward) {
+        if ($this->shouldTraverseForward($index, $tailIndex)) {
             $this->traverseForward($index);
             return null;
         }
@@ -234,6 +230,11 @@ class Doublylinkedlist {
 
         $this->tail = new Node($value);
         $this->count ++;
+    }
+
+    private function shouldTraverseForward($index, $tailIndex): bool
+    {
+        return $index < ($tailIndex - $index);
     }
 
     private function traverseForward(int $index, $value = null): ?Node
