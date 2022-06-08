@@ -268,13 +268,13 @@ class Doublylinkedlist {
         $this->count ++;
     }
 
-    private function traverseForwardDelete(Node $oldNode): void
+    private function traverseForwardDelete(Node $oldNode): ?Node
     {
         $oldNode->previous->next = $oldNode->next;
         $oldNode->next->previous = $oldNode->previous;
-        $oldNode = null;
-
         $this->count --;
+
+        return $oldNode;
     }
 
     private function traverseBackward(int $index, $value = null):  ?Node
@@ -310,8 +310,8 @@ class Doublylinkedlist {
         $this->count ++;
     }
 
-    private function traverseBackwardDelete(Node $oldNode): void
+    private function traverseBackwardDelete(Node $oldNode): ?Node
     {
-        $this->traverseForwardDelete($oldNode);
+        return $this->traverseForwardDelete($oldNode);
     }
 }
