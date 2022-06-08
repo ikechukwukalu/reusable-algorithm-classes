@@ -4,6 +4,11 @@ namespace Datastructures\Linkedlists;
 
 class Displaylist extends Doublylinkedlist {
 
+    public function __construct()
+    {
+
+    }
+
     public function displayListRightMovement(Doublylinkedlist $list): void
     {
         $list->itemIndex = $list->item = null;
