@@ -6,9 +6,10 @@ class Doublylinkedlist {
 
     private ?Node $head;
     private ?Node $tail;
-    private ?Node $item;
-    private ?int $itemIndex;
     private int $count = 0;
+
+    protected ?Node $item;
+    protected ?int $itemIndex;
 
     public function __construct()
     {
@@ -168,6 +169,10 @@ class Doublylinkedlist {
 
     public function nextItem(): void
     {
+        if (!$this->head) {
+            return;
+        }
+
         if (is_null($this->itemIndex)) {
             $this->itemIndex = -1;
         }
@@ -189,11 +194,7 @@ class Doublylinkedlist {
 
     public function prevItem(): void
     {
-        if (is_null($this->itemIndex)) {
-            return;
-        }
-
-        if ($this->itemIndex === 0) {
+        if (is_null($this->itemIndex) || $this->itemIndex === 0) {
             return;
         }
 
@@ -314,55 +315,4 @@ class Doublylinkedlist {
     {
         return $this->traverseForwardDelete($oldNode);
     }
-
-    /**
-     * Start
-     * *********
-     * These functions are only used to display the linked list
-     * Consider removing them
-     * *********
-     */
-    public function displayListRightMovement(Doublylinkedlist $list): void
-    {
-        $this->itemIndex = $this->item = null;
-
-        $i = 0;
-        $count = $list->size();
-
-        while ($i < $count) {
-            echo 'VALUE: ' . $list->getCurrentItem()->value . ', INDEX: ' . $list->getCurrentItemIndex() . '<br/>';
-            $list->nextItem();
-            $i ++;
-        }
-
-        echo '<br/>';
-    }
-
-    public function displayListLeftMovement(Doublylinkedlist $list): void
-    {
-        $j = $list->size() - 1;
-
-        while ($j >= 0) {
-            echo 'VALUE: ' . $list->getCurrentItem()->value . ', INDEX: ' . $list->getCurrentItemIndex() . '<br/>';
-            $list->prevItem();
-            $j --;
-        }
-
-        echo '<br/>';
-    }
-
-    public function displayUsingPreTag($object): void
-    {
-        echo '<pre>';
-        print_r($object);
-        echo '</pre>';
-    }
-
-    public function description($text): void
-    {
-        echo "<h3>{$text}</h3><br/>";
-    }
-    /**
-     * End
-     */
 }
