@@ -33,11 +33,6 @@ class BST {
 
     }
 
-    public function size(): int
-    {
-        return $this->count;
-    }
-
     //left, root, right.
     public function depthFirstSortInOrder(): array
     {
