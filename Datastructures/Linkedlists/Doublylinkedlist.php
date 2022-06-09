@@ -16,7 +16,7 @@ class Doublylinkedlist {
         $this->head = $this->tail = $this->item = $this->itemIndex = null;
     }
 
-    public function shift($value): void
+    public function unshift($value): void
     {
         if (!$this->head) {
             $this->setFirstElement($value);
@@ -29,7 +29,7 @@ class Doublylinkedlist {
         $oldHead->previous = $this->head;
     }
 
-    public function unshift(): ?Node
+    public function shift(): ?Node
     {
         if (!$this->head) {
             return null;
@@ -74,7 +74,7 @@ class Doublylinkedlist {
         }
 
         if ($index === 0) {
-            $this->shift($value);
+            $this->unshift($value);
             return;
         }
 
@@ -108,7 +108,7 @@ class Doublylinkedlist {
         }
 
         if ($index === 0) {
-            return $this->unshift();
+            return $this->shift();
         }
 
         if ($this->shouldTraverseForward($index, $tailIndex)) {

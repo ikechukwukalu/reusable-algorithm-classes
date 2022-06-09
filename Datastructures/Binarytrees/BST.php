@@ -37,19 +37,22 @@ class BST {
         return $this->count;
     }
 
-    public function depthFirstSearchInOrder($value): ?Node
+    //left, root, right.
+    public function depthFirstSearchInOrder(): array
     {
-
+        return $this->depthFirstSearchInOrderTraverse($this->root);
     }
 
-    public function depthFirstSearchPreOrder($value): ?Node
+    //root, left, right
+    public function depthFirstSearchPreOrder(): array
     {
-
+        return $this->depthFirstSearchPreOrderTraverse($this->root);
     }
 
-    public function depthFirstSearchPostOrder($value): ?Node
+    //left, right, root
+    public function depthFirstSearchPostOrder(): array
     {
-
+        return $this->depthFirstSearchPostOrderTraverse($this->root);
     }
 
     public function breadthFirstSearch($value): ?Node
@@ -93,5 +96,56 @@ class BST {
         }
 
         return $currentNode;
+    }
+
+    private function depthFirstSearchInOrderTraverse(Node $root): array
+    {
+        $values = [];
+
+        if ($root->left) {
+            $this->depthFirstSearchInOrderTraverse($root->left);
+        }
+
+        $values[] = $root->value;
+
+        if ($root->right) {
+            $this->depthFirstSearchInOrderTraverse($root->right);
+        }
+
+        $values;
+    }
+
+    private function depthFirstSearchPreOrderTraverse(Node $root): array
+    {
+        $values = [];
+
+        $values[] = $root->value;
+
+        if ($root->left) {
+            $this->depthFirstSearchPreOrderTraverse($root->left);
+        }
+
+        if ($root->right) {
+            $this->depthFirstSearchPreOrderTraverse($root->right);
+        }
+
+        $values;
+    }
+
+    private function depthFirstSearchPostOrderTraverse(Node $root): array
+    {
+        $values = [];
+
+        if ($root->left) {
+            $this->depthFirstSearchPostOrderTraverse($root->left);
+        }
+
+        if ($root->right) {
+            $this->depthFirstSearchPostOrderTraverse($root->right);
+        }
+
+        $values[] = $root->value;
+
+        $values;
     }
 }

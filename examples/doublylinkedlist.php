@@ -10,13 +10,13 @@ require ('../Datastructures/Linkedlists/Displaylist.php');
 $list = new Doublylinkedlist();
 $display = new Displaylist();
 
-$list->shift(5);
-$list->shift(4);
-$list->shift(3);
-$list->shift(2);
-$list->shift(1);
-$list->shift(0.2);
-$list->shift(0.1);
+$list->unshift(5);
+$list->unshift(4);
+$list->unshift(3);
+$list->unshift(2);
+$list->unshift(1);
+$list->unshift(0.2);
+$list->unshift(0.1);
 
 $list->push(6);
 $list->push(7);
@@ -35,8 +35,8 @@ $display->description('Initial List In Loop');
 $display->displayListRightMovement($list);
 $display->displayListLeftMovement($list);
 
-$list->unshift();
-$list->unshift();
+$list->shift();
+$list->shift();
 
 $display->description('Removed 2 Items From Top');
 $display->displayListRightMovement($list);
