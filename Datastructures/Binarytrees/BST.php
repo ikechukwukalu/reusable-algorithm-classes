@@ -28,9 +28,9 @@ class BST {
         return $this->treeObservations('right');
     }
 
-    public function search($value): ?Node
+    public function size(): int
     {
-
+        return $this->count;
     }
 
     //left, root, right.
