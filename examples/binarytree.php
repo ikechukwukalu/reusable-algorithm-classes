@@ -7,15 +7,15 @@ require ('../Datastructures/Binarytrees/BST.php');
 require ('../Datastructures/Binarytrees/Node.php');
 require ('../Datastructures/Binarytrees/Displaytree.php');
 
-$tree = new BST(20);
+$tree = new BST(15);
 $display = new Displaytree();
 
-$tree->insert(10);
-$tree->insert(9);
-$tree->insert(11);
-$tree->insert(30);
-$tree->insert(29);
-$tree->insert(31);
+$tree->insert(3);
+$tree->insert(36);
+$tree->insert(2);
+$tree->insert(12);
+$tree->insert(28);
+$tree->insert(39);
 
 $display->description('Initial Tree In Object Format');
 $display->displayUsingPreTag($tree);
@@ -25,3 +25,12 @@ $display->displayUsingPreTag($tree->min());
 
 $display->description('Show The Max Branch In Object Format');
 $display->displayUsingPreTag($tree->max());
+
+$display->description('Depth First Search In Order');
+$display->displayUsingPreTag($tree->depthFirstSearchInOrder());
+
+$display->description('Depth First Search Pre-order');
+$display->displayUsingPreTag($tree->depthFirstSearchPreOrder());
+
+$display->description('Depth First Search Post-order');
+$display->displayUsingPreTag($tree->depthFirstSearchPostOrder());

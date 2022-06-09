@@ -6,6 +6,7 @@ class BST {
 
     private Node $root;
     private int $count = 1;
+    private array $values = [];
 
     public function __construct($value)
     {
@@ -40,19 +41,28 @@ class BST {
     //left, root, right.
     public function depthFirstSearchInOrder(): array
     {
-        return $this->depthFirstSearchInOrderTraverse($this->root);
+        $this->values = [];
+        $this->depthFirstSearchInOrderTraverse($this->root);
+
+        return $this->values;
     }
 
     //root, left, right
     public function depthFirstSearchPreOrder(): array
     {
-        return $this->depthFirstSearchPreOrderTraverse($this->root);
+        $this->values = [];
+        $this->depthFirstSearchPreOrderTraverse($this->root);
+
+        return $this->values;
     }
 
     //left, right, root
     public function depthFirstSearchPostOrder(): array
     {
-        return $this->depthFirstSearchPostOrderTraverse($this->root);
+        $this->values = [];
+        $this->depthFirstSearchPostOrderTraverse($this->root);
+
+        return $this->values;
     }
 
     public function breadthFirstSearch($value): ?Node
@@ -98,28 +108,22 @@ class BST {
         return $currentNode;
     }
 
-    private function depthFirstSearchInOrderTraverse(Node $root): array
+    private function depthFirstSearchInOrderTraverse(Node $root): void
     {
-        $values = [];
-
         if ($root->left) {
             $this->depthFirstSearchInOrderTraverse($root->left);
         }
 
-        $values[] = $root->value;
+        $this->values[] = $root->value;
 
         if ($root->right) {
             $this->depthFirstSearchInOrderTraverse($root->right);
         }
-
-        $values;
     }
 
-    private function depthFirstSearchPreOrderTraverse(Node $root): array
+    private function depthFirstSearchPreOrderTraverse(Node $root): void
     {
-        $values = [];
-
-        $values[] = $root->value;
+        $this->values[] = $root->value;
 
         if ($root->left) {
             $this->depthFirstSearchPreOrderTraverse($root->left);
@@ -128,14 +132,10 @@ class BST {
         if ($root->right) {
             $this->depthFirstSearchPreOrderTraverse($root->right);
         }
-
-        $values;
     }
 
-    private function depthFirstSearchPostOrderTraverse(Node $root): array
+    private function depthFirstSearchPostOrderTraverse(Node $root): void
     {
-        $values = [];
-
         if ($root->left) {
             $this->depthFirstSearchPostOrderTraverse($root->left);
         }
@@ -144,8 +144,6 @@ class BST {
             $this->depthFirstSearchPostOrderTraverse($root->right);
         }
 
-        $values[] = $root->value;
-
-        $values;
+        $this->values[] = $root->value;
     }
 }
