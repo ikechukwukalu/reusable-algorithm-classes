@@ -26,11 +26,14 @@ $display->displayUsingPreTag($tree->min());
 $display->description('Show The Max Branch In Object Format');
 $display->displayUsingPreTag($tree->max());
 
-$display->description('Depth First Search In Order');
-$display->displayUsingPreTag($tree->depthFirstSearchInOrder());
+$display->description('Depth First Sort In Order');
+$display->displayUsingPreTag($tree->depthFirstSortInOrder());
 
-$display->description('Depth First Search Pre-order');
-$display->displayUsingPreTag($tree->depthFirstSearchPreOrder());
+$display->description('Depth First Sort Pre-order');
+$display->displayUsingPreTag($tree->depthFirstSortPreOrder());
 
-$display->description('Depth First Search Post-order');
-$display->displayUsingPreTag($tree->depthFirstSearchPostOrder());
+$display->description('Depth First Sort Post-order');
+$display->displayUsingPreTag($tree->depthFirstSortPostOrder());
+
+$display->description('Breadth First Sort');
+$display->displayUsingPreTag($tree->breadthFirstSort());

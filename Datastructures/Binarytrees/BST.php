@@ -39,35 +39,51 @@ class BST {
     }
 
     //left, root, right.
-    public function depthFirstSearchInOrder(): array
+    public function depthFirstSortInOrder(): array
     {
         $this->values = [];
-        $this->depthFirstSearchInOrderTraverse($this->root);
+        $this->depthFirstSortInOrderTraverse($this->root);
 
         return $this->values;
     }
 
     //root, left, right
-    public function depthFirstSearchPreOrder(): array
+    public function depthFirstSortPreOrder(): array
     {
         $this->values = [];
-        $this->depthFirstSearchPreOrderTraverse($this->root);
+        $this->depthFirstSortPreOrderTraverse($this->root);
 
         return $this->values;
     }
 
     //left, right, root
-    public function depthFirstSearchPostOrder(): array
+    public function depthFirstSortPostOrder(): array
     {
         $this->values = [];
-        $this->depthFirstSearchPostOrderTraverse($this->root);
+        $this->depthFirstSortPostOrderTraverse($this->root);
 
         return $this->values;
     }
 
-    public function breadthFirstSearch($value): ?Node
+    public function breadthFirstSort(): array
     {
+        $this->values = [];
+        $queue = [$this->root];
 
+        while (!empty($queue)) {
+            $currentNode = array_shift($queue);
+            $this->values[] = $currentNode->value;
+
+            if ($currentNode->left) {
+                $queue[] = $currentNode->left;
+            }
+
+            if ($currentNode->right) {
+                $queue[] = $currentNode->right;
+            }
+        }
+
+        return $this->values;
     }
 
     private function traverse(Node $root, $value): void
@@ -108,40 +124,40 @@ class BST {
         return $currentNode;
     }
 
-    private function depthFirstSearchInOrderTraverse(Node $root): void
+    private function depthFirstSortInOrderTraverse(Node $root): void
     {
         if ($root->left) {
-            $this->depthFirstSearchInOrderTraverse($root->left);
+            $this->depthFirstSortInOrderTraverse($root->left);
         }
 
         $this->values[] = $root->value;
 
         if ($root->right) {
-            $this->depthFirstSearchInOrderTraverse($root->right);
+            $this->depthFirstSortInOrderTraverse($root->right);
         }
     }
 
-    private function depthFirstSearchPreOrderTraverse(Node $root): void
+    private function depthFirstSortPreOrderTraverse(Node $root): void
     {
         $this->values[] = $root->value;
 
         if ($root->left) {
-            $this->depthFirstSearchPreOrderTraverse($root->left);
+            $this->depthFirstSortPreOrderTraverse($root->left);
         }
 
         if ($root->right) {
-            $this->depthFirstSearchPreOrderTraverse($root->right);
+            $this->depthFirstSortPreOrderTraverse($root->right);
         }
     }
 
-    private function depthFirstSearchPostOrderTraverse(Node $root): void
+    private function depthFirstSortPostOrderTraverse(Node $root): void
     {
         if ($root->left) {
-            $this->depthFirstSearchPostOrderTraverse($root->left);
+            $this->depthFirstSortPostOrderTraverse($root->left);
         }
 
         if ($root->right) {
-            $this->depthFirstSearchPostOrderTraverse($root->right);
+            $this->depthFirstSortPostOrderTraverse($root->right);
         }
 
         $this->values[] = $root->value;
