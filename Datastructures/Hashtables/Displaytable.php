@@ -2,7 +2,7 @@
 
 namespace Datastructures\Hashtables;
 
-class Displaytree extends Hashtable {
+class Displaytable extends Hashtable {
 
     public function __construct()
     {

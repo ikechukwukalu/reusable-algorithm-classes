@@ -1,13 +1,13 @@
 <?php
 
 use Datastructures\Hashtables\Hashtable;
-use Datastructures\Hashtables\Displaytree;
+use Datastructures\Hashtables\Displaytable;
 
 require ('../Datastructures/Hashtables/Hashtable.php');
-require ('../Datastructures/Hashtables/Displaytree.php');
+require ('../Datastructures/Hashtables/Displaytable.php');
 
 $hashtable = new Hashtable();
-$display = new Displaytree();
+$display = new Displaytable();
 
 $arr = ['contains data'];
 
