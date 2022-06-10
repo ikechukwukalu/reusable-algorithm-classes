@@ -54,29 +54,52 @@ class Hashtable
         $this->length ++;
     }
 
-    public function remove($string, $attrname, $attrvalue): void
+    public function remove($string): ?array
     {
         $bucket = $this->generate_bucket($string);
 
         if (is_null($this->table[$bucket])) {
-            return;
+            return null;
         }
 
         foreach ($this->table[$bucket] as $key => $value) {
-            if ($key !== 'string') {
-                continue;
+            if ($key === 'string') {
+                if ($this->compareRemoveValue($value, $string)) {
+                    $oldElement = [
+                        'string' => $this->table[$bucket]['string'],
+                        'data' => $this->table[$bucket]['data'],
+                    ];
+                    unset($this->table[$bucket]['string']);
+                    unset($this->table[$bucket]['data']);
+                    $this->length --;
+
+                    if (empty($this->table[$bucket])) {
+                        unset($this->table[$bucket]);
+                    }
+
+                    return $oldElement;
+                }
             }
 
-            if ($value == $string
-                &&
-                $this->table[$bucket][$attrname] == $attrvalue
-            ) {
-                unset($this->table[$bucket][$key]);
-                $this->length --;
+            $element = $this->table[$bucket][$key];
 
-                return;
+            if (is_array($element)) {
+                foreach($element as $index => $element_value) {
+                    if ($index !== 'string') {
+                        continue;
+                    }
+
+                    if ($this->compareRemoveValue($element_value, $string)) {
+                        unset($this->table[$bucket][$key]);
+                        $this->length --;
+
+                        return $element;
+                    }
+                }
             }
         }
+
+        return null;
     }
 
     public function search($string): ?array
@@ -122,6 +145,11 @@ class Hashtable
         return $this->table;
     }
 
+    public function lastSearchResult(): array
+    {
+        return $this->resultArray;
+    }
+
     private function compareSearchValue($value, $string, $element): bool
     {
         if (strcmp($value, $string) === 0) {
@@ -131,5 +159,10 @@ class Hashtable
         }
 
         return false;
+    }
+
+    private function compareRemoveValue($value, $string): bool
+    {
+        return strcmp($value, $string) === 0;
     }
 }

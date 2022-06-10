@@ -32,3 +32,9 @@ $display->displayUsingPreTag($hashtable->search("astronautss"));
 
 $display->description('Hash Table Length');
 $display->displayUsingPreTag($hashtable->length());
+
+$display->description('Remove "astronauts" From Hash Table');
+$display->displayUsingPreTag($hashtable->remove("astronauts"));
+
+$display->description('Hash Table In Object Format');
+$display->displayUsingPreTag($hashtable->viewHashTable());
