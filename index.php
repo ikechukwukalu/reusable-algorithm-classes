@@ -16,7 +16,8 @@
         <a href="examples/doublylinkedlist.php" class="list-group-item list-group-item-action">Doubly Linked List</a>
         <a href="examples/binarytree.php" class="list-group-item list-group-item-action">Binary Tree</a>
         <a href="examples/hashtable.php" class="list-group-item list-group-item-action">Hash Table</a>
-        <a href="examples/stack.php" class="list-group-item list-group-item-action">Stack</a>
+        <a href="examples/stack.php" class="list-group-item list-group-item-action">Stacks</a>
+        <a href="examples/queue.php" class="list-group-item list-group-item-action">Queues</a>
     </div>
 </div>
 

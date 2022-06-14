@@ -32,6 +32,10 @@ class Stack {
 
     public function peek()
     {
+        if ($this->count === -1) {
+            return null;
+        }
+
         return $this->storage->{$this->count};
     }
 
