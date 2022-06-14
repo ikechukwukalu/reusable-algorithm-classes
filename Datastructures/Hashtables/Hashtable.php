@@ -46,9 +46,10 @@ class Hashtable
             return;
         }
 
-        if (!is_null($this->search($string))) {
-            return;
-        }
+        //check for duplicate 0(n)
+        // if (!is_null($this->search($string))) {
+        //     return;
+        // }
 
         $this->table[$bucket][] = $tmp_array;
         $this->length ++;
@@ -64,7 +65,7 @@ class Hashtable
 
         foreach ($this->table[$bucket] as $key => $value) {
             if ($key === 'string') {
-                if ($this->compareRemoveValue($value, $string)) {
+                if ($this->valueMatchesSearchString($value, $string)) {
                     $oldElement = [
                         'string' => $this->table[$bucket]['string'],
                         'data' => $this->table[$bucket]['data'],
@@ -89,7 +90,7 @@ class Hashtable
                         continue;
                     }
 
-                    if ($this->compareRemoveValue($element_value, $string)) {
+                    if ($this->valueMatchesSearchString($element_value, $string)) {
                         unset($this->table[$bucket][$key]);
                         $this->length --;
 
@@ -112,7 +113,7 @@ class Hashtable
 
         foreach ($this->table[$bucket] as $key => $value) {
             if ($key === 'string') {
-                if ($this->compareSearchValue($value, $string, $this->table[$bucket])) {
+                if ($this->valueMatchesSearchString($value, $string, $this->table[$bucket])) {
                     return $this->resultArray;
                 }
             }
@@ -125,7 +126,7 @@ class Hashtable
                         continue;
                     }
 
-                    if ($this->compareSearchValue($element_value, $string, $element)) {
+                    if ($this->valueMatchesSearchString($element_value, $string, $element)) {
                         return $this->resultArray;
                     }
                 }
@@ -150,19 +151,16 @@ class Hashtable
         return $this->resultArray;
     }
 
-    private function compareSearchValue($value, $string, $element): bool
+    private function valueMatchesSearchString($value, $string, $element = null): bool
     {
         if (strcmp($value, $string) === 0) {
-            $this->resultArray = $element;
+            if (isset($element)) {
+                $this->resultArray = $element;
+            }
 
             return true;
         }
 
         return false;
-    }
-
-    private function compareRemoveValue($value, $string): bool
-    {
-        return strcmp($value, $string) === 0;
     }
 }
