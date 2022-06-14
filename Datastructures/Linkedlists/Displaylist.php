@@ -18,7 +18,7 @@ class Displaylist extends Doublylinkedlist {
 
         while ($i < $count) {
             echo 'VALUE: ' . $list->getCurrentItem()->value . ', INDEX: ' . $list->getCurrentItemIndex() . '<br/>';
-            $list->nextItem();
+            $list->navigateToNextItem();
             $i ++;
         }
 
@@ -31,7 +31,7 @@ class Displaylist extends Doublylinkedlist {
 
         while ($j >= 0) {
             echo 'VALUE: ' . $list->getCurrentItem()->value . ', INDEX: ' . $list->getCurrentItemIndex() . '<br/>';
-            $list->prevItem();
+            $list->navigateToPrevItem();
             $j --;
         }
 

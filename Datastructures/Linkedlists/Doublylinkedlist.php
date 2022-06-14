@@ -163,7 +163,7 @@ class Doublylinkedlist {
         return $this->itemIndex;
     }
 
-    public function nextItem(): void
+    public function navigateToNextItem(): void
     {
         if (!$this->head) {
             return;
@@ -188,7 +188,7 @@ class Doublylinkedlist {
         $this->itemIndex ++;
     }
 
-    public function prevItem(): void
+    public function navigateToPrevItem(): void
     {
         if (is_null($this->itemIndex) || $this->itemIndex === 0) {
             return;
