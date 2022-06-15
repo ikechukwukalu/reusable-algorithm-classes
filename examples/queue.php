@@ -9,10 +9,10 @@ require ('../Datastructures/Queues/Displayqueue.php');
 $queue = new Queue();
 $display = new Displayqueue();
 
-$queue->unshift('A');
-$queue->unshift('B');
-$queue->unshift('C');
-$queue->unshift('D');
+$queue->push('A');
+$queue->push('B');
+$queue->push('C');
+$queue->push('D');
 
 $display->description('Initial Queue In Object Format');
 $display->displayUsingPreTag($queue->viewQueue());

@@ -12,7 +12,7 @@ class Queue {
         $this->storage = new \stdClass();
     }
 
-    public function unshift($value): void
+    public function push($value): void
     {
         $this->count ++;
 
