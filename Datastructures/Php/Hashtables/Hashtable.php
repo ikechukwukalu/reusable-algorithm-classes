@@ -1,6 +1,6 @@
 <?php
 
-namespace Datastructures\Hashtables;
+namespace Datastructures\Php\Hashtables;
 
 class Hashtable
 {

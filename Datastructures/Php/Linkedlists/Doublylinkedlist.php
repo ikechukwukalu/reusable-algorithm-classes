@@ -1,6 +1,6 @@
 <?php
 
-namespace Datastructures\Linkedlists;
+namespace Datastructures\Php\Linkedlists;
 
 class Doublylinkedlist {
 

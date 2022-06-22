@@ -1,6 +1,6 @@
 <?php
 
-namespace Datastructures\Stacks;
+namespace Datastructures\Php\Stacks;
 
 class Stack {
 

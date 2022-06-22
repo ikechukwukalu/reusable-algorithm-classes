@@ -1,6 +1,6 @@
 <?php
 
-namespace Datastructures\Binarytrees;
+namespace Datastructures\Php\Binarytrees;
 
 class BST {
 

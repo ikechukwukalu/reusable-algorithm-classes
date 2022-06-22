@@ -1,12 +1,12 @@
 <?php
 
-namespace Datastructures\Binarytrees;
+namespace Datastructures\Php\Linkedlists;
 
 class Node {
 
     public $value;
-    public ?Node $left = null;
-    public ?Node $right = null;
+    public ?Node $previous = null;
+    public ?Node $next = null;
 
     public function __construct($value)
     {

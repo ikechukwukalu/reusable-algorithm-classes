@@ -1,6 +1,6 @@
 <?php
 
-namespace Datastructures\Queues;
+namespace Datastructures\Php\Queues;
 
 class Queue {
 

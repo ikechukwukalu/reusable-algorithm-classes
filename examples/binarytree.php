@@ -1,11 +1,11 @@
 <?php
 
-use Datastructures\Binarytrees\BST;
-use Datastructures\Binarytrees\Displaytree;
+use Datastructures\Php\Binarytrees\BST;
+use Datastructures\Php\Binarytrees\Displaytree;
 
-require ('../Datastructures/Binarytrees/BST.php');
-require ('../Datastructures/Binarytrees/Node.php');
-require ('../Datastructures/Binarytrees/Displaytree.php');
+require ('../Datastructures/Php/Binarytrees/BST.php');
+require ('../Datastructures/Php/Binarytrees/Node.php');
+require ('../Datastructures/Php/Binarytrees/Displaytree.php');
 
 $tree = new BST(15);
 $display = new Displaytree();

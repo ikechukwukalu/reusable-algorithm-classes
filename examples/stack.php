@@ -1,10 +1,10 @@
 <?php
 
-use Datastructures\Stacks\Stack;
-use Datastructures\Stacks\Displaystack;
+use Datastructures\Php\Stacks\Stack;
+use Datastructures\Php\Stacks\Displaystack;
 
-require ('../Datastructures/Stacks/Stack.php');
-require ('../Datastructures/Stacks/Displaystack.php');
+require ('../Datastructures/Php/Stacks/Stack.php');
+require ('../Datastructures/Php/Stacks/Displaystack.php');
 
 $stack = new Stack();
 $display = new Displaystack();

@@ -1,10 +1,10 @@
 <?php
 
-use Datastructures\Hashtables\Hashtable;
-use Datastructures\Hashtables\Displaytable;
+use Datastructures\Php\Hashtables\Hashtable;
+use Datastructures\Php\Hashtables\Displaytable;
 
-require ('../Datastructures/Hashtables/Hashtable.php');
-require ('../Datastructures/Hashtables/Displaytable.php');
+require ('../Datastructures/Php/Hashtables/Hashtable.php');
+require ('../Datastructures/Php/Hashtables/Displaytable.php');
 
 $hashtable = new Hashtable();
 $display = new Displaytable();

@@ -1,8 +1,8 @@
 <?php
 
-namespace Datastructures\Hashtables;
+namespace Datastructures\Php\Stacks;
 
-class Displaytable extends Hashtable {
+class Displaystack extends Stack {
 
     public function __construct()
     {

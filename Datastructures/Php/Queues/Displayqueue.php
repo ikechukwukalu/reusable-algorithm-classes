@@ -1,8 +1,8 @@
 <?php
 
-namespace Datastructures\Binarytrees;
+namespace Datastructures\Php\Queues;
 
-class Displaytree extends BST {
+class Displayqueue extends Queue {
 
     public function __construct()
     {

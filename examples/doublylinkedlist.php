@@ -1,11 +1,11 @@
 <?php
 
-use Datastructures\Linkedlists\Doublylinkedlist;
-use Datastructures\Linkedlists\Displaylist;
+use Datastructures\Php\Linkedlists\Doublylinkedlist;
+use Datastructures\Php\Linkedlists\Displaylist;
 
-require ('../Datastructures/Linkedlists/Doublylinkedlist.php');
-require ('../Datastructures/Linkedlists/Node.php');
-require ('../Datastructures/Linkedlists/Displaylist.php');
+require ('../Datastructures/Php/Linkedlists/Doublylinkedlist.php');
+require ('../Datastructures/Php/Linkedlists/Node.php');
+require ('../Datastructures/Php/Linkedlists/Displaylist.php');
 
 $list = new Doublylinkedlist();
 $display = new Displaylist();

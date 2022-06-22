@@ -1,10 +1,10 @@
 <?php
 
-use Datastructures\Queues\Queue;
-use Datastructures\Queues\Displayqueue;
+use Datastructures\Php\Queues\Queue;
+use Datastructures\Php\Queues\Displayqueue;
 
-require ('../Datastructures/Queues/Queue.php');
-require ('../Datastructures/Queues/Displayqueue.php');
+require ('../Datastructures/Php/Queues/Queue.php');
+require ('../Datastructures/Php/Queues/Displayqueue.php');
 
 $queue = new Queue();
 $display = new Displayqueue();
