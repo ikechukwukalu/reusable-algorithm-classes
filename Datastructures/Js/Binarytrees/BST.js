@@ -1,165 +1,112 @@
-type NODE = {
-    readonly value: string|number|Array<any>,
-    left: any,
-    right: any
-}
-
-type BINARYTREE = {
-    readonly root: NODE,
-    readonly size: number,
-    readonly insert: Function,
-    readonly min: Function,
-    readonly max: Function,
-    readonly depthFirstSortInOrder: Function,
-    readonly depthFirstSortPreOrder: Function,
-    readonly depthFirstSortPostOrder: Function,
-    readonly breadthFirstSort: Function
-}
-
-const NodeFunc: Function = (value: string|number|Array<any>): NODE => {
+var NodeFunc = function (value) {
     return {
         value: value,
         left: null,
         right: null
-    }
-}
-
-const BinaryTreeFunc: Function = (firstValue: string|number|Array<any>): BINARYTREE => {
-    let rootNode: NODE = NodeFunc(firstValue);
-    let size: number = 1;
-    let values: Array<any> = [];
-
-    const insert: Function = (value: string|number|Array<any>): void => {
+    };
+};
+var BinaryTreeFunc = function (firstValue) {
+    var rootNode = NodeFunc(firstValue);
+    var size = 1;
+    var values = [];
+    var insert = function (value) {
         traverse(rootNode, value);
         return;
-    }
-
-    const min: Function = (): NODE => treeObservations('left');
-
-    const max: Function = (): NODE => treeObservations('right');
-
+    };
+    var min = function () { return treeObservations('left'); };
+    var max = function () { return treeObservations('right'); };
     //left, root, right.
-    const depthFirstSortInOrder: Function = (): Array<any> => {
+    var depthFirstSortInOrder = function () {
         values = [];
         depthFirstSortInOrderTraverse(rootNode);
-
         return values;
-    }
-
+    };
     //root, left, right
-    const depthFirstSortPreOrder: Function = (): Array<any> => {
+    var depthFirstSortPreOrder = function () {
         values = [];
         depthFirstSortPreOrderTraverse(rootNode);
-
         return values;
-    }
-
+    };
     //left, right, root
-    const depthFirstSortPostOrder: Function = (): Array<any> => {
+    var depthFirstSortPostOrder = function () {
         values = [];
         depthFirstSortPostOrderTraverse(rootNode);
-
         return values;
-    }
-
-    const breadthFirstSort: Function = (): Array<any> => {
+    };
+    var breadthFirstSort = function () {
         values = [];
-        let queue: Array<NODE> = [rootNode];
-
+        var queue = [rootNode];
         while (queue.length > 0) {
-            let currentNode: any = queue.shift();
+            var currentNode = queue.shift();
             values.push(currentNode.value);
-
             if (currentNode.left) {
                 queue.push(currentNode.left);
             }
-
             if (currentNode.right) {
                 queue.push(currentNode.right);
             }
         }
-
         return values;
-    }
-
-    const traverse: Function = (root: NODE, value: string|number|Array<any>): void => {
+    };
+    var traverse = function (root, value) {
         if (root.value === value) {
             return;
         }
-
         if (value < root.value) {
             if (root.left === null) {
-                let node = NodeFunc(value);
+                var node = NodeFunc(value);
                 root.left = node;
-                size ++;
-
+                size++;
                 return;
             }
-
             traverse(root.left, value);
             return;
         }
-
         if (value > root.value) {
             if (root.right === null) {
-                let node = NodeFunc(value);
+                var node = NodeFunc(value);
                 root.right = node;
-                size ++;
-
+                size++;
                 return;
             }
-
             traverse(root.right, value);
             return;
         }
-    }
-
-    const depthFirstSortInOrderTraverse: Function = (root: NODE): void => {
+    };
+    var depthFirstSortInOrderTraverse = function (root) {
         if (root.left) {
             depthFirstSortInOrderTraverse(root.left);
         }
-
         values.push(root.value);
-
         if (root.right) {
             depthFirstSortInOrderTraverse(root.right);
         }
-    }
-
-    const depthFirstSortPreOrderTraverse: Function = (root: NODE): void => {
+    };
+    var depthFirstSortPreOrderTraverse = function (root) {
         values.push(root.value);
-
         if (root.left) {
             depthFirstSortPreOrderTraverse(root.left);
         }
-
         if (root.right) {
             depthFirstSortPreOrderTraverse(root.right);
         }
-    }
-
-    const depthFirstSortPostOrderTraverse: Function = (root: NODE): void => {
+    };
+    var depthFirstSortPostOrderTraverse = function (root) {
         if (root.left) {
             depthFirstSortPostOrderTraverse(root.left);
         }
-
         if (root.right) {
             depthFirstSortPostOrderTraverse(root.right);
         }
-
         values.push(root.value);
-    }
-
-    const treeObservations: Function = (leg: string): NODE => {
-        let currentNode: NODE = rootNode;
-
+    };
+    var treeObservations = function (leg) {
+        var currentNode = rootNode;
         while (currentNode[leg]) {
             currentNode = currentNode[leg];
         }
-
         return currentNode;
-    }
-
+    };
     return {
         root: rootNode,
         size: size,
@@ -169,36 +116,27 @@ const BinaryTreeFunc: Function = (firstValue: string|number|Array<any>): BINARYT
         depthFirstSortInOrder: depthFirstSortInOrder,
         depthFirstSortPreOrder: depthFirstSortPreOrder,
         depthFirstSortPostOrder: depthFirstSortPostOrder,
-        breadthFirstSort: breadthFirstSort,
+        breadthFirstSort: breadthFirstSort
     };
-}
-
-const tree: BINARYTREE = BinaryTreeFunc(15);
-
+};
+var tree = BinaryTreeFunc(15);
 tree.insert(3);
 tree.insert(36);
 tree.insert(2);
 tree.insert(12);
 tree.insert(28);
 tree.insert(39);
-
 process.stdout.write('\nInitial Tree In Object Format\n');
 console.log(tree);
-
 process.stdout.write('\nShow The Min Branch In Object Format\n');
 console.log(tree.min());
-
 process.stdout.write('\nShow The Max Branch In Object Format\n');
 console.log(tree.max());
-
 process.stdout.write('\nDepth First Sort In Order\n');
 console.log(tree.depthFirstSortInOrder());
-
 process.stdout.write('\nDepth First Sort Pre-order\n');
 console.log(tree.depthFirstSortPreOrder());
-
 process.stdout.write('\nDepth First Sort Post-order\n');
 console.log(tree.depthFirstSortPostOrder());
-
 process.stdout.write('\Breadth First Sort\n');
 console.log(tree.breadthFirstSort());
