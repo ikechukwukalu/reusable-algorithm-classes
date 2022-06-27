@@ -9,7 +9,7 @@ var NodeFunc = function (value) {
 };
 var BinaryTreeFunc = function (firstValue) {
     var rootNode = NodeFunc(firstValue);
-    var size = 1;
+    var count = 1;
     var values = [];
     var insert = function (value) {
         traverse(rootNode, value);
@@ -17,6 +17,7 @@ var BinaryTreeFunc = function (firstValue) {
     };
     var min = function () { return treeObservations('left'); };
     var max = function () { return treeObservations('right'); };
+    var size = function () { return count; };
     //left, root, right.
     var depthFirstSortInOrder = function () {
         values = [];
@@ -58,7 +59,7 @@ var BinaryTreeFunc = function (firstValue) {
             if (root.left === null) {
                 var node = NodeFunc(value);
                 root.left = node;
-                size++;
+                count++;
                 return;
             }
             traverse(root.left, value);
@@ -68,7 +69,7 @@ var BinaryTreeFunc = function (firstValue) {
             if (root.right === null) {
                 var node = NodeFunc(value);
                 root.right = node;
-                size++;
+                count++;
                 return;
             }
             traverse(root.right, value);

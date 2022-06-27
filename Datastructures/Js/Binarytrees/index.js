@@ -14,6 +14,8 @@ process.stdout.write('\nShow The Min Branch In Object Format\n');
 console.log(tree.min());
 process.stdout.write('\nShow The Max Branch In Object Format\n');
 console.log(tree.max());
+process.stdout.write('\nShow The Size In Object Format\n');
+console.log(tree.size());
 process.stdout.write('\nDepth First Sort In Order\n');
 console.log(tree.depthFirstSortInOrder());
 process.stdout.write('\nDepth First Sort Pre-order\n');

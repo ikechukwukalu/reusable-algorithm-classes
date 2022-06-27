@@ -84,12 +84,12 @@ class Doublylinkedlist {
             return;
         }
 
-        if ($this->shouldTraverseForward($index, $tailIndex)) {
-            $this->traverseForward($index, $value);
+        if ($this->shouldTraverseFromFront($index, $tailIndex)) {
+            $this->traverseFromFront($index, $value);
             return;
         }
 
-        $this->traverseBackward($index, $value);
+        $this->traverseFromBack($index, $value);
     }
 
     public function deleteAt(int $index): ?Node
@@ -111,12 +111,12 @@ class Doublylinkedlist {
             return $this->shift();
         }
 
-        if ($this->shouldTraverseForward($index, $tailIndex)) {
-            $this->traverseForward($index);
+        if ($this->shouldTraverseFromFront($index, $tailIndex)) {
+            $this->traverseFromFront($index);
             return null;
         }
 
-        return $this->traverseBackward($index);
+        return $this->traverseFromBack($index);
     }
 
     public function search($value): ?Node
@@ -232,12 +232,12 @@ class Doublylinkedlist {
         $this->count ++;
     }
 
-    private function shouldTraverseForward($index, $tailIndex): bool
+    private function shouldTraverseFromFront($index, $tailIndex): bool
     {
         return $index < ($tailIndex - $index);
     }
 
-    private function traverseForward(int $index, $value = null): ?Node
+    private function traverseFromFront(int $index, $value = null): ?Node
     {
         $currentNode = $this->head;
         $currentIndex = 0;
@@ -245,10 +245,10 @@ class Doublylinkedlist {
         while($currentIndex <= $index) {
             if ($currentIndex === $index) {
                 if (!$value) {
-                    return $this->traverseForwardDelete($currentNode);
+                    return $this->traverseFromFrontDelete($currentNode);
                 }
 
-                $this->traverseForwardInsert($value, $currentNode);
+                $this->traverseFromFrontInsert($value, $currentNode);
                 return null;
             }
 
@@ -259,7 +259,7 @@ class Doublylinkedlist {
         return null;
     }
 
-    private function traverseForwardInsert($value, Node $nextNode): void
+    private function traverseFromFrontInsert($value, Node $nextNode): void
     {
         $newNode = new Node($value);
         $nextNode->previous->next = $newNode;
@@ -270,7 +270,7 @@ class Doublylinkedlist {
         $this->count ++;
     }
 
-    private function traverseForwardDelete(Node $oldNode): ?Node
+    private function traverseFromFrontDelete(Node $oldNode): ?Node
     {
         $oldNode->previous->next = $oldNode->next;
         $oldNode->next->previous = $oldNode->previous;
@@ -279,7 +279,7 @@ class Doublylinkedlist {
         return $oldNode;
     }
 
-    private function traverseBackward(int $index, $value = null):  ?Node
+    private function traverseFromBack(int $index, $value = null):  ?Node
     {
         $currentNode = $this->tail;
         $currentIndex = $this->count - 1;
@@ -287,10 +287,10 @@ class Doublylinkedlist {
         while($currentIndex >= $index) {
             if ($currentIndex === $index) {
                 if (!$value) {
-                    return $this->traverseBackwardDelete($currentNode);
+                    return $this->traverseFromBackDelete($currentNode);
                 }
 
-                $this->traverseBackwardInsert($value, $currentNode);
+                $this->traverseFromBackInsert($value, $currentNode);
                 return null;
             }
 
@@ -301,7 +301,7 @@ class Doublylinkedlist {
         return null;
     }
 
-    private function traverseBackwardInsert($value, Node $prevNode): void
+    private function traverseFromBackInsert($value, Node $prevNode): void
     {
         $newNode = new Node($value);
         $prevNode->next->previous = $newNode;
@@ -312,8 +312,8 @@ class Doublylinkedlist {
         $this->count ++;
     }
 
-    private function traverseBackwardDelete(Node $oldNode): ?Node
+    private function traverseFromBackDelete(Node $oldNode): ?Node
     {
-        return $this->traverseForwardDelete($oldNode);
+        return $this->traverseFromFrontDelete($oldNode);
     }
 }

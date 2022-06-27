@@ -6,7 +6,7 @@ type NODE = {
 
 export type BINARYTREE = {
     readonly root: NODE,
-    readonly size: number,
+    readonly size: Function,
     readonly insert: Function,
     readonly min: Function,
     readonly max: Function,
@@ -26,7 +26,7 @@ const NodeFunc: Function = (value: string|number|Array<any>): NODE => {
 
 const BinaryTreeFunc: Function = (firstValue: string|number|Array<any>): BINARYTREE => {
     let rootNode: NODE = NodeFunc(firstValue);
-    let size: number = 1;
+    let count: number = 1;
     let values: Array<any> = [];
 
     const insert: Function = (value: string|number|Array<any>): void => {
@@ -37,6 +37,8 @@ const BinaryTreeFunc: Function = (firstValue: string|number|Array<any>): BINARYT
     const min: Function = (): NODE => treeObservations('left');
 
     const max: Function = (): NODE => treeObservations('right');
+
+    const size: Function = (): number => count;
 
     //left, root, right.
     const depthFirstSortInOrder: Function = (): Array<any> => {
@@ -91,7 +93,7 @@ const BinaryTreeFunc: Function = (firstValue: string|number|Array<any>): BINARYT
             if (root.left === null) {
                 let node = NodeFunc(value);
                 root.left = node;
-                size ++;
+                count ++;
 
                 return;
             }
@@ -104,7 +106,7 @@ const BinaryTreeFunc: Function = (firstValue: string|number|Array<any>): BINARYT
             if (root.right === null) {
                 let node = NodeFunc(value);
                 root.right = node;
-                size ++;
+                count ++;
 
                 return;
             }
