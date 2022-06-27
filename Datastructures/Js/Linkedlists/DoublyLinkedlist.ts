@@ -13,7 +13,11 @@ export type DOUBLYLINKEDLIST = {
     readonly shift: Function,
     readonly pop: Function,
     readonly search: Function,
-    readonly insertAt: Function
+    readonly insertAt: Function,
+    readonly getCurrentItem: Function,
+    readonly getCurrentItemIndex: Function,
+    readonly navigateToNextItem: Function,
+    readonly navigateToPrevItem: Function
 }
 
 const NodeFunc: Function = (value: string|number|Array<any>): NODE => {
@@ -30,7 +34,7 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
     let count: number = 0;
 
     let item: NODE = null;
-    let itemIndex: number = 0;
+    let itemIndex: number|null;
 
     const unshift: Function = (value: string|number|Array<any>) => {
         if (!head) {
@@ -134,6 +138,59 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
         count ++;
     }
 
+    const getCurrentItem: Function = (): NODE => {
+        if (!itemIndex) {
+            itemIndex = 0;
+        }
+
+        if (itemIndex === 0) {
+            item = head;
+        }
+
+        return item;
+    }
+
+    const getCurrentItemIndex: Function = (): number|null => {
+        if (!itemIndex) {
+            return null;
+        }
+
+        return itemIndex;
+    }
+
+    const navigateToNextItem: Function = (): void => {
+        if (!head) {
+            return;
+        }
+
+        if (!itemIndex) {
+            itemIndex = -1;
+        }
+
+        if (itemIndex === (count - 1)) {
+            return;
+        }
+
+        if (!item) {
+            item = head;
+            itemIndex ++;
+
+            return;
+        }
+
+        item = item.next;
+        itemIndex ++;
+    }
+
+    const navigateToPrevItem: Function = (): void => {
+        if (!itemIndex || itemIndex === 0) {
+            return;
+        }
+
+        item = item.previous;
+        itemIndex --;
+    }
+
     const setHeadOnly: Function = (value: string|number|Array<any>|NODE, isNode: boolean = false): void => {
         if (isNode) {
             head = value;
@@ -229,7 +286,11 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
         shift: shift,
         pop: pop,
         search: search,
-        insertAt: insertAt
+        insertAt: insertAt,
+        getCurrentItem: getCurrentItem,
+        getCurrentItemIndex: getCurrentItemIndex,
+        navigateToNextItem: navigateToNextItem,
+        navigateToPrevItem: navigateToPrevItem
     }
 }
 
