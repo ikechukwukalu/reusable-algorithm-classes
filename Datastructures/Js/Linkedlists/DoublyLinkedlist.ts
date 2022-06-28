@@ -1,5 +1,5 @@
 type NODE = {
-    value: string|number|Array<any>,
+    readonly value: string|number|Array<any>,
     previous: any,
     next: any
 } | null;
