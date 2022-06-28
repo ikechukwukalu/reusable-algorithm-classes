@@ -9,7 +9,7 @@ class Displaylist extends Doublylinkedlist {
 
     }
 
-    public function displayListRightMovement(Doublylinkedlist $list): void
+    public function displayListFromHead(Doublylinkedlist $list): void
     {
         $list->itemIndex = $list->item = null;
 
@@ -25,7 +25,7 @@ class Displaylist extends Doublylinkedlist {
         echo '<br/>';
     }
 
-    public function displayListLeftMovement(Doublylinkedlist $list): void
+    public function displayListFromTail(Doublylinkedlist $list): void
     {
         $j = $list->size() - 1;
 

@@ -32,22 +32,22 @@ $display->displayUsingPreTag($list);
 echo '<br/><br/><br/>';
 
 $display->description('Initial List In Loop');
-$display->displayListRightMovement($list);
-$display->displayListLeftMovement($list);
+$display->displayListFromHead($list);
+$display->displayListFromTail($list);
 
 $list->shift();
 $list->shift();
 
 $display->description('Removed 2 Items From Top');
-$display->displayListRightMovement($list);
-$display->displayListLeftMovement($list);
+$display->displayListFromHead($list);
+$display->displayListFromTail($list);
 
 $list->pop();
 $list->pop();
 
 $display->description('Removed 2 Items From Bottom');
-$display->displayListRightMovement($list);
-$display->displayListLeftMovement($list);
+$display->displayListFromHead($list);
+$display->displayListFromTail($list);
 
 $list->insertAt(0, 0);
 $list->insertAt(11, 10);
@@ -59,8 +59,8 @@ $list->insertAt(9.5, 13);
 $list->insertAt(10.5, 15);
 
 $display->description('Added 8 New Items From Index Positions');
-$display->displayListRightMovement($list);
-$display->displayListLeftMovement($list);
+$display->displayListFromHead($list);
+$display->displayListFromTail($list);
 
 $display->description('Searched For A Value');
 $display->displayUsingPreTag($list->search(0.5));
@@ -76,5 +76,5 @@ $list->deleteAt(10); // 11
 
 
 $display->description('Removed 8 Items From Index Positions');
-$display->displayListRightMovement($list);
-$display->displayListLeftMovement($list);
+$display->displayListFromHead($list);
+$display->displayListFromTail($list);

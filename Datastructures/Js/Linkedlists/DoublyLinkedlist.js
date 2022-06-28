@@ -11,30 +11,30 @@ var DoublyLinkedListFunc = function () {
     var head = null;
     var tail = null;
     var count = 0;
-    var item = null;
-    var itemIndex = 0;
+    var item;
+    var itemIndex = null;
     var unshift = function (value) {
-        if (!head) {
+        if (head === null) {
             setFirstElement(value);
             return;
         }
         var oldHead = head;
-        setHeadOnly(value);
+        setHeadOnly(NodeFunc(value));
         head.next = oldHead;
         oldHead.previous = head;
     };
     var push = function (value) {
-        if (!tail) {
+        if (tail === null) {
             setFirstElement(value);
             return;
         }
         var oldTail = tail;
-        setTailOnly(value);
+        setTailOnly(NodeFunc(value));
         tail.previous = oldTail;
         oldTail.next = tail;
     };
     var shift = function () {
-        if (!head) {
+        if (head === null) {
             return null;
         }
         var oldHead = head;
@@ -42,7 +42,7 @@ var DoublyLinkedListFunc = function () {
         return oldHead;
     };
     var pop = function () {
-        if (!tail) {
+        if (tail === null) {
             return null;
         }
         var oldTail = tail;
@@ -53,7 +53,7 @@ var DoublyLinkedListFunc = function () {
     var headList = function () { return head; };
     var tailList = function () { return tail; };
     var search = function (value) {
-        if (!head) {
+        if (head === null) {
             return null;
         }
         var currentNode = head;
@@ -68,16 +68,12 @@ var DoublyLinkedListFunc = function () {
         return null;
     };
     var insertAt = function (value, index) {
-        if (!head) {
-            setFirstElement(value);
-            return;
-        }
-        if (index === 0) {
+        if (index <= 0) {
             unshift(value);
             return;
         }
         var tailIndex = count - 1;
-        if (index === tailIndex) {
+        if (index >= tailIndex) {
             push(value);
             return;
         }
@@ -87,40 +83,101 @@ var DoublyLinkedListFunc = function () {
         }
         traverseFromBack(index, value);
     };
+    var deleteAt = function (index) {
+        if (head === null) {
+            return null;
+        }
+        var tailIndex = count - 1;
+        if (index > tailIndex) {
+            return null;
+        }
+        if (index === tailIndex) {
+            return pop();
+        }
+        if (index === 0) {
+            return shift();
+        }
+        if (shouldTraverseFromFront(index, tailIndex)) {
+            return traverseFromFront(index);
+        }
+        return traverseFromBack(index);
+    };
     var setFirstElement = function (value) {
         head = tail = NodeFunc(value);
         count++;
     };
-    var setHeadOnly = function (value, isNode) {
-        if (isNode === void 0) { isNode = false; }
-        if (isNode) {
+    var getCurrentItem = function () {
+        if (itemIndex === null) {
+            itemIndex = 0;
+            item = headList();
+        }
+        return item;
+    };
+    var getCurrentItemIndex = function () {
+        if (itemIndex === null) {
+            return null;
+        }
+        return itemIndex;
+    };
+    var navigateToNextItem = function () {
+        if (head === null) {
+            return;
+        }
+        if (itemIndex === null) {
+            itemIndex = -1;
+        }
+        if (itemIndex === (count - 1)) {
+            return;
+        }
+        if (item === null) {
+            item = headList();
+            itemIndex++;
+            return;
+        }
+        item = item.next;
+        itemIndex++;
+    };
+    var navigateToPrevItem = function () {
+        if (itemIndex === null || itemIndex === 0) {
+            return;
+        }
+        item = item.previous;
+        itemIndex--;
+    };
+    var setHeadOnly = function (value, isDelete) {
+        if (isDelete === void 0) { isDelete = false; }
+        if (isDelete) {
             head = value;
             head.previous = null;
             count--;
             return;
         }
-        head = NodeFunc(value);
+        head = value;
         count++;
     };
-    var setTailOnly = function (value, isNode) {
-        if (isNode === void 0) { isNode = false; }
-        if (isNode) {
+    var setTailOnly = function (value, isDelete) {
+        if (isDelete === void 0) { isDelete = false; }
+        if (isDelete) {
             tail = value;
             tail.next = null;
             count--;
             return;
         }
-        tail = NodeFunc(value);
+        tail = value;
         count++;
     };
     var shouldTraverseFromFront = function (index, tailIndex) {
         return index < (tailIndex - index);
     };
     var traverseFromFront = function (index, value) {
+        if (value === void 0) { value = null; }
         var currentNode = head;
         var currentIndex = 0;
         while (currentIndex <= index) {
             if (currentIndex === index) {
+                if (value === null) {
+                    return traverseFromFrontDelete(currentNode);
+                }
                 traverseFromFrontInsert(value, currentNode);
                 return null;
             }
@@ -137,11 +194,21 @@ var DoublyLinkedListFunc = function () {
         nextNode.previous = newNode;
         count++;
     };
+    var traverseFromFrontDelete = function (oldNode) {
+        oldNode.previous.next = oldNode.next;
+        oldNode.next.previous = oldNode.previous;
+        count--;
+        return oldNode;
+    };
     var traverseFromBack = function (index, value) {
+        if (value === void 0) { value = null; }
         var currentNode = tail;
         var currentIndex = count - 1;
         while (currentIndex >= index) {
             if (currentIndex === index) {
+                if (value === null) {
+                    return traverseFromBackDelete(currentNode);
+                }
                 traverseFromBackInsert(value, currentNode);
                 return null;
             }
@@ -158,6 +225,31 @@ var DoublyLinkedListFunc = function () {
         prevNode.next = newNode;
         count++;
     };
+    var traverseFromBackDelete = function (oldNode) {
+        return traverseFromFrontDelete(oldNode);
+    };
+    /**
+     * Extra functions
+     * Not a part of the doublylinkedlist
+     */
+    var displayListFromHead = function () {
+        itemIndex = item = null;
+        var i = 0;
+        var count = size();
+        while (i < count) {
+            console.log('VALUE: ' + getCurrentItem().value + ', INDEX: ' + getCurrentItemIndex() + '\n');
+            navigateToNextItem();
+            i++;
+        }
+    };
+    var displayListFromTail = function () {
+        var j = size() - 1;
+        while (j >= 0) {
+            console.log('VALUE: ' + getCurrentItem().value + ', INDEX: ' + getCurrentItemIndex() + '\n');
+            navigateToPrevItem();
+            j--;
+        }
+    };
     return {
         headList: headList,
         tailList: tailList,
@@ -167,7 +259,14 @@ var DoublyLinkedListFunc = function () {
         shift: shift,
         pop: pop,
         search: search,
-        insertAt: insertAt
+        insertAt: insertAt,
+        getCurrentItem: getCurrentItem,
+        getCurrentItemIndex: getCurrentItemIndex,
+        navigateToNextItem: navigateToNextItem,
+        navigateToPrevItem: navigateToPrevItem,
+        deleteAt: deleteAt,
+        displayListFromHead: displayListFromHead,
+        displayListFromTail: displayListFromTail
     };
 };
 exports["default"] = DoublyLinkedListFunc;

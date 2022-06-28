@@ -1,5 +1,5 @@
 type NODE = {
-    readonly value: string|number|Array<any>,
+    value: string|number|Array<any>,
     previous: any,
     next: any
 } | null;
@@ -17,7 +17,10 @@ export type DOUBLYLINKEDLIST = {
     readonly getCurrentItem: Function,
     readonly getCurrentItemIndex: Function,
     readonly navigateToNextItem: Function,
-    readonly navigateToPrevItem: Function
+    readonly navigateToPrevItem: Function,
+    readonly deleteAt: Function,
+    readonly displayListFromHead: Function,
+    readonly displayListFromTail: Function
 }
 
 const NodeFunc: Function = (value: string|number|Array<any>): NODE => {
@@ -33,35 +36,35 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
     let tail: NODE = null;
     let count: number = 0;
 
-    let item: NODE = null;
-    let itemIndex: number|null;
+    let item: NODE;
+    let itemIndex: number|null = null;
 
     const unshift: Function = (value: string|number|Array<any>) => {
-        if (!head) {
+        if (head === null) {
             setFirstElement(value);
             return;
         }
 
         let oldHead = head;
-        setHeadOnly(value);
+        setHeadOnly(NodeFunc(value));
         head.next = oldHead;
         oldHead.previous = head;
     }
 
     const push: Function = (value: string|number|Array<any>) => {
-        if (!tail) {
+        if (tail === null) {
             setFirstElement(value);
             return;
         }
 
         let oldTail = tail;
-        setTailOnly(value);
+        setTailOnly(NodeFunc(value));
         tail.previous = oldTail;
         oldTail.next = tail;
     }
 
     const shift: Function = (): NODE => {
-        if (!head) {
+        if (head === null) {
             return null;
         }
 
@@ -72,7 +75,7 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
     }
 
     const pop: Function = () => {
-        if (!tail) {
+        if (tail === null) {
             return null;
         }
 
@@ -89,7 +92,7 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
     const tailList: Function = (): NODE => tail;
 
     const search: Function = (value: string|number|Array<any>): NODE => {
-        if (!head) {
+        if (head === null) {
             return null;
         }
 
@@ -109,18 +112,13 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
     }
 
     const insertAt: Function = (value: string|number|Array<any>, index: number): void => {
-        if (!head) {
-            setFirstElement(value);
-            return;
-        }
-
-        if (index === 0) {
+        if (index <= 0) {
             unshift(value);
             return;
         }
 
         let tailIndex: number = count - 1;
-        if (index === tailIndex) {
+        if (index >= tailIndex) {
             push(value);
             return;
         }
@@ -133,25 +131,47 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
         traverseFromBack(index, value);
     }
 
+    const deleteAt: Function = (index: number): NODE => {
+        if (head === null) {
+            return null;
+        }
+
+        let tailIndex: number = count - 1;
+        if (index > tailIndex) {
+            return null;
+        }
+
+        if (index === tailIndex) {
+            return pop();
+        }
+
+        if (index === 0) {
+            return shift();
+        }
+
+        if (shouldTraverseFromFront(index, tailIndex)) {
+            return traverseFromFront(index);
+        }
+
+        return traverseFromBack(index);
+    }
+
     const setFirstElement: Function = (value: string|number|Array<any>): void => {
         head = tail = NodeFunc(value);
         count ++;
     }
 
     const getCurrentItem: Function = (): NODE => {
-        if (!itemIndex) {
+        if (itemIndex === null) {
             itemIndex = 0;
-        }
-
-        if (itemIndex === 0) {
-            item = head;
+            item = headList();
         }
 
         return item;
     }
 
     const getCurrentItemIndex: Function = (): number|null => {
-        if (!itemIndex) {
+        if (itemIndex === null) {
             return null;
         }
 
@@ -159,11 +179,11 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
     }
 
     const navigateToNextItem: Function = (): void => {
-        if (!head) {
+        if (head === null) {
             return;
         }
 
-        if (!itemIndex) {
+        if (itemIndex === null) {
             itemIndex = -1;
         }
 
@@ -171,8 +191,8 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
             return;
         }
 
-        if (!item) {
-            item = head;
+        if (item === null) {
+            item = headList();
             itemIndex ++;
 
             return;
@@ -183,7 +203,7 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
     }
 
     const navigateToPrevItem: Function = (): void => {
-        if (!itemIndex || itemIndex === 0) {
+        if (itemIndex === null || itemIndex === 0) {
             return;
         }
 
@@ -191,21 +211,22 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
         itemIndex --;
     }
 
-    const setHeadOnly: Function = (value: string|number|Array<any>|NODE, isNode: boolean = false): void => {
-        if (isNode) {
+    const setHeadOnly: Function = (value: NODE, isDelete: boolean = false): void => {
+        if (isDelete) {
             head = value;
             head.previous = null;
+
             count --;
 
             return;
         }
 
-        head = NodeFunc(value);
+        head = value;
         count ++;
     }
 
-    const setTailOnly: Function = (value: string|number|Array<any>|NODE, isNode: boolean = false): void => {
-        if (isNode) {
+    const setTailOnly: Function = (value: NODE, isDelete: boolean = false): void => {
+        if (isDelete) {
             tail = value;
             tail.next = null;
             count --;
@@ -213,7 +234,7 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
             return;
         }
 
-        tail = NodeFunc(value);
+        tail = value;
         count ++;
     }
 
@@ -221,12 +242,15 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
         return index < (tailIndex - index);
     }
 
-    const traverseFromFront: Function = (index: number, value: string|number|Array<any>|NODE): NODE => {
+    const traverseFromFront: Function = (index: number, value: string|number|Array<any>|NODE = null): NODE => {
         let currentNode = head;
         let currentIndex = 0;
 
         while (currentIndex <= index) {
             if (currentIndex === index) {
+                if (value === null) {
+                    return traverseFromFrontDelete(currentNode);
+                }
 
                 traverseFromFrontInsert(value, currentNode);
                 return null;
@@ -249,12 +273,23 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
         count ++;
     }
 
-    const traverseFromBack: Function = (index: number, value: string|number|Array<any>|NODE): NODE => {
+    const traverseFromFrontDelete: Function = (oldNode: NODE): NODE => {
+        oldNode.previous.next = oldNode.next;
+        oldNode.next.previous = oldNode.previous;
+        count --;
+
+        return oldNode;
+    }
+
+    const traverseFromBack: Function = (index: number, value: string|number|Array<any>|NODE = null): NODE => {
         let currentNode = tail;
         let currentIndex = count - 1;
 
         while (currentIndex >= index) {
             if (currentIndex === index) {
+                if (value === null) {
+                    return traverseFromBackDelete(currentNode);
+                }
 
                 traverseFromBackInsert(value, currentNode);
                 return null;
@@ -277,6 +312,38 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
         count ++;
     }
 
+    const traverseFromBackDelete: Function = (oldNode: NODE): NODE => {
+        return traverseFromFrontDelete(oldNode);
+    }
+
+    /**
+     * Extra functions
+     * Not a part of the doublylinkedlist
+     */
+
+    const displayListFromHead: Function = (): void => {
+        itemIndex = item = null;
+
+        let i = 0;
+        let count = size();
+
+        while (i < count) {
+            console.log('VALUE: ' + getCurrentItem().value + ', INDEX: ' + getCurrentItemIndex() + '\n');
+            navigateToNextItem();
+            i ++;
+        }
+    }
+
+    const displayListFromTail: Function = (): void => {
+        let j = size() - 1;
+
+        while (j >= 0) {
+            console.log('VALUE: ' + getCurrentItem().value + ', INDEX: ' + getCurrentItemIndex() + '\n');
+            navigateToPrevItem();
+            j --;
+        }
+    }
+
     return {
         headList: headList,
         tailList: tailList,
@@ -290,7 +357,10 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
         getCurrentItem: getCurrentItem,
         getCurrentItemIndex: getCurrentItemIndex,
         navigateToNextItem: navigateToNextItem,
-        navigateToPrevItem: navigateToPrevItem
+        navigateToPrevItem: navigateToPrevItem,
+        deleteAt: deleteAt,
+        displayListFromHead: displayListFromHead,
+        displayListFromTail: displayListFromTail
     }
 }
 

@@ -112,8 +112,7 @@ class Doublylinkedlist {
         }
 
         if ($this->shouldTraverseFromFront($index, $tailIndex)) {
-            $this->traverseFromFront($index);
-            return null;
+            return $this->traverseFromFront($index);
         }
 
         return $this->traverseFromBack($index);
@@ -145,9 +144,6 @@ class Doublylinkedlist {
     {
         if (is_null($this->itemIndex)) {
             $this->itemIndex = 0;
-        }
-
-        if ($this->itemIndex === 0) {
             $this->item = $this->head;
         }
 
