@@ -344,6 +344,10 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
         }
     }
 
+    /**
+     * End extra functions
+     */
+
     return {
         headList: headList,
         tailList: tailList,
