@@ -14,11 +14,11 @@ export type DOUBLYLINKEDLIST = {
     readonly pop: Function,
     readonly search: Function,
     readonly insertAt: Function,
+    readonly deleteAt: Function,
     readonly getCurrentItem: Function,
     readonly getCurrentItemIndex: Function,
     readonly navigateToNextItem: Function,
     readonly navigateToPrevItem: Function,
-    readonly deleteAt: Function,
     readonly displayListFromHead: Function,
     readonly displayListFromTail: Function
 }
@@ -358,11 +358,11 @@ const DoublyLinkedListFunc: Function = (): DOUBLYLINKEDLIST => {
         pop: pop,
         search: search,
         insertAt: insertAt,
+        deleteAt: deleteAt,
         getCurrentItem: getCurrentItem,
         getCurrentItemIndex: getCurrentItemIndex,
         navigateToNextItem: navigateToNextItem,
         navigateToPrevItem: navigateToPrevItem,
-        deleteAt: deleteAt,
         displayListFromHead: displayListFromHead,
         displayListFromTail: displayListFromTail
     }
