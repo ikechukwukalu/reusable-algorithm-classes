@@ -84,18 +84,20 @@ class Hashtable
 
             $element = $this->table[$bucket][$key];
 
-            if (is_array($element)) {
-                foreach($element as $index => $element_value) {
-                    if ($index !== 'string') {
-                        continue;
-                    }
+            if (!is_array($element)) {
+                continue;
+            }
 
-                    if ($this->valueMatchesSearchString($element_value, $string)) {
-                        unset($this->table[$bucket][$key]);
-                        $this->length --;
+            foreach($element as $index => $element_value) {
+                if ($index !== 'string') {
+                    continue;
+                }
 
-                        return $element;
-                    }
+                if ($this->valueMatchesSearchString($element_value, $string)) {
+                    unset($this->table[$bucket][$key]);
+                    $this->length --;
+
+                    return $element;
                 }
             }
         }
@@ -120,15 +122,17 @@ class Hashtable
 
             $element = $this->table[$bucket][$key];
 
-            if (is_array($element)) {
-                foreach($element as $index => $element_value) {
-                    if ($index !== 'string') {
-                        continue;
-                    }
+            if (!is_array($element)) {
+                continue;
+            }
 
-                    if ($this->valueMatchesSearchString($element_value, $string, $element)) {
-                        return $this->resultArray;
-                    }
+            foreach($element as $index => $element_value) {
+                if ($index !== 'string') {
+                    continue;
+                }
+
+                if ($this->valueMatchesSearchString($element_value, $string, $element)) {
+                    return $this->resultArray;
                 }
             }
         }
