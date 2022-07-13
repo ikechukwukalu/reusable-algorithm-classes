@@ -288,13 +288,13 @@ const LINKEDLIST = () => {
     }
 
     return {
-        push: pushToTail,
-        filter: filterBlocksWithBestDistance
+        pushBlocks: pushToTail,
+        findBlocks: filterBlocksWithBestDistance
     }
 }
 
 let list = LINKEDLIST();
 
-blocks.map((obj, index) => list.push(obj, index));
+blocks.map((obj, index) => list.pushBlocks(obj, index));
 
-console.log(list.filter());
+console.log(list.findBlocks());
