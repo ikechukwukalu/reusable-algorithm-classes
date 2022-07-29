@@ -5,25 +5,29 @@ let ary = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
     81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100
 ];
 
+const returnedObj = (array, index = null, value = null) => {
+    return {array: array, index: index, value: value};
+}
+
 const binarySearch = (ary, value) => {
     let left = 0;
     let right = ary.length - 1;
     let middle = Math.floor((left + right) / 2);
 
     if (ary.length <= 0) {
-        return {array: ary, index: null, value: null};
+        return returnedObj(ary);
     }
 
     if (ary[left] === value) {
-        return {array: ary, index: left, value: ary[left]};
+        return returnedObj(ary, left, ary[left]);
     }
 
     if (ary[right] === value) {
-        return {array: ary, index: right, value: ary[right]};
+        return returnedObj(ary, right, ary[right]);
     }
 
     if (ary[middle] === value) {
-        return {array: ary, index: middle, value: ary[middle]};
+        return returnedObj(ary, middle, ary[middle]);
     }
 
     if (ary[middle] < value) {
