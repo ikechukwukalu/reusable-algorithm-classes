@@ -9,7 +9,7 @@ const isBalanced = (str) => {
     let size = str_ary.length;
     let n = (size / 2) - 1;
 
-    if (size % 2 === '0') {
+    if (size % 2 !== 0) {
         return false;
     }
 
